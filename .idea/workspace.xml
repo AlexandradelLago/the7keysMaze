@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc0b7d8e-c0d1-4de1-8561-f45fb6f02050" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.iml" beforeDir="false" afterPath="$PROJECT_DIR$/model.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/door.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/img/door.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/img/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/keys.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/img/keys.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/wall.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/img/wall.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/win.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/img/win.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/img/wizard.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/img/wizard.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/js/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/model/Action.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/model/Action.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/model/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/model/Cell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/model/Keeper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/model/Keeper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/model/Maze.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/model/Maze.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/model/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/model/Position.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/solution/KeeperAI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/solution/KeeperAI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/springboot/MazeApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/springboot/MazeApplication.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,14 +57,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="4780" />
+          <entry key="java" value="5769" />
           <entry key="txt" value="15" />
           <entry key="xml" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4780" />
+          <entry key="JAVA" value="5769" />
           <entry key="PLAIN_TEXT" value="15" />
           <entry key="XML" value="13" />
         </counts>
@@ -96,15 +76,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+            <state relative-caret-position="-810">
+              <caret line="29" column="134" selection-start-line="29" selection-start-column="134" selection-end-line="29" selection-end-column="134" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#isDoor#0;class#KeeperAI#0" />
-                <element signature="method#direction#0;class#KeeperAI#0" />
-                <element signature="method#stepped#0;class#KeeperAI#0" />
-                <element signature="method#steppedTwice#0;class#KeeperAI#0" />
-                <element signature="method#adyacents#0;class#KeeperAI#0" />
               </folding>
             </state>
           </provider>
@@ -157,7 +132,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="661" />
     <option name="y" value="23" />
     <option name="width" value="779" />
@@ -230,7 +205,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539714358010" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539800965814" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -334,15 +309,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49225268" weight="0.07515924" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.2951807" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49225268" weight="0.35286623" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.28674698" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32880434" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49940404" weight="0.32810047" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32866243" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49940404" weight="0.32738853" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5077473" side_tool="true" weight="0.38980892" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Problems" order="10" />
+      <window_info anchor="bottom" id="Problems" order="10" weight="0.3299363" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3299363" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -362,43 +337,37 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>60</line>
+          <line>52</line>
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>64</line>
+          <line>55</line>
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>39</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>68</line>
+          <line>78</line>
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>77</line>
+          <line>87</line>
           <properties />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>42</line>
+          <line>98</line>
           <properties />
-          <option name="timeStamp" value="22" />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>81</line>
+          <line>91</line>
           <properties class="tws.keeper.solution.KeeperAI" method="isDoor">
             <option name="EMULATED" value="true" />
           </properties>
@@ -406,7 +375,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>87</line>
+          <line>97</line>
           <properties class="tws.keeper.solution.KeeperAI" method="direction">
             <option name="EMULATED" value="true" />
           </properties>
@@ -575,15 +544,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+        <state relative-caret-position="-810">
+          <caret line="29" column="134" selection-start-line="29" selection-start-column="134" selection-end-line="29" selection-end-column="134" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#isDoor#0;class#KeeperAI#0" />
-            <element signature="method#direction#0;class#KeeperAI#0" />
-            <element signature="method#stepped#0;class#KeeperAI#0" />
-            <element signature="method#steppedTwice#0;class#KeeperAI#0" />
-            <element signature="method#adyacents#0;class#KeeperAI#0" />
           </folding>
         </state>
       </provider>

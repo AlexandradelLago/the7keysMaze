@@ -16,7 +16,6 @@ public class KeeperAI implements Keeper {
 
     /**
      * This Keeper Artificial Inteligence simply acts randomly
-     *
      * @param maze
      * @return
      */
@@ -28,16 +27,32 @@ public class KeeperAI implements Keeper {
         walkedPositions.add(current);
         Integer pasos = walkedPositions.size();
         System.out.println("estos son los pasos " + pasos + "y este es el contador " + count + " y esto es los walked " + walkedPositions);
-        // celdas a donde puedo ir
-
-       // ArrayList<Integer> possibleDirections = new ArrayList<Integer>(new int[]{0, 1, 2, 3});
+        // celdas a donde puedo ir // ir a la derecha , arriba , izquierda o abajo NO SERIA MEJOR USR EL ENUM CELL EN LUGAR DE ESTO???
         List<Integer> possibleDirections = new ArrayList<>(Arrays.asList(0,1,2,3));
-        //Arrays.asList(new Integer[]); // ir a la derecha , arriba , izquierda o abajo*/
         List<Cell> adyacentes = adyacents(maze);
-        // me voy a quitar la celda de donde vengo
-        Integer indexOfPredecessor = adyacentes.indexOf(walkedPositions.get(walkedPositions.size()-1));
-       /* direction(walkedPositions);*/
+        // AQUI ME QUITO LOS MUROS Y DEBERIA METER AHI DENTRO QQUITAAR LA CELDA DE DONDE VENGO
         toPossible(adyacentes,Cell.WALL,possibleDirections);
+
+
+        // 1. HACER FUNCION PRA QUITARME LA CEDLDA DE DONDE VENGO
+        Integer indexOfPredecessor = adyacentes.indexOf(walkedPositions.get(walkedPositions.size()-1));
+
+
+        /*  1. SI ES PUERTA Y TENGO TODAS LAS LLAVES TERMINO
+            2. ME QUITO LOS MUROS  - HECHO
+            3. ME QUITO DE DONDE VENGO
+            4. MIRO SI TENGO CELDAAS QUE NO HAYA PASADO -  SI YA HE PASADO ME LA QUITO - FUNCION QUE CALCULA LA POSITION DE LAS CELDAS A LAS QUE PUEDO OPTAR
+               5. SI SOLO TENGO UNA VOY A ESA
+               6. SI TENGO DOS Y UNA ES LLAVE VOY A ESA
+               7. SI NINGUNA ES LLAVE ENTONCES ALEATORIO
+               8. SI ES LLAVE - GUARDO POSITION DE LLAVE ENCONTRADA Y AÑADO NUMERO DE LLAVES ENCONTRADAS
+               9. GUARDO LA DIRECCION DE LA LLAVE ENCONTRADA.
+
+        */
+
+       if ( isDoor(adyacentes) && maze.isMazeCompleted()){
+            return availableActions.get(adyacentes.indexOf(Cell.DOOR));
+        }
 
 
         if (count==0){
@@ -53,17 +68,12 @@ public class KeeperAI implements Keeper {
             count++;
             return availableActions.get(3);
         }
-
-        // 1. HACER UN INDEZ EN ACTIONS
-        // 2. GUARDAR
-
-
-      /*  if ( isDoor(adyacentes) && maze.isMazeCompleted()){
-            return availableActions.get(adyacentes.indexOf(Cell.DOOR));
-        }
-
-      /*  return availableActions.get(ThreadLocalRandom.current().nextInt(availableActions.size()));*/
+       // return availableActions.get(ThreadLocalRandom.current().nextInt(availableActions.size()));
     }
+
+
+    /*************************** FUNCIONES ******************************************************************/
+
     // funcion que me elimina los muros y tb debo decirle que elimine la direccion de donde vengo
     private void toPossible(List<Cell> possiblePositions,Cell celltypetoRemove,List<Integer> directions){
         int size = possiblePositions.size();

@@ -5,7 +5,6 @@ import tws.keeper.model.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static tws.keeper.model.Action.*;
 
@@ -28,55 +27,69 @@ public class KeeperAI implements Keeper {
         // añadire por donde voy pasando
         walkedPositions.add(current);
         Integer pasos = walkedPositions.size();
+        System.out.println("estos son los pasos " + pasos + "y este es el contador " + count + " y esto es los walked " + walkedPositions);
         // celdas a donde puedo ir
-        List<Integer> possibleDirections = Arrays.asList(new Integer[]{0,1,2,3 }); // ir a la derecha , arriba , izquierda o abajo
+
+       // ArrayList<Integer> possibleDirections = new ArrayList<Integer>(new int[]{0, 1, 2, 3});
+        List<Integer> possibleDirections = new ArrayList<>(Arrays.asList(0,1,2,3));
+        //Arrays.asList(new Integer[]); // ir a la derecha , arriba , izquierda o abajo*/
         List<Cell> adyacentes = adyacents(maze);
         // me voy a quitar la celda de donde vengo
-
         Integer indexOfPredecessor = adyacentes.indexOf(walkedPositions.get(walkedPositions.size()-1));
-        direction(walkedPositions);
+       /* direction(walkedPositions);*/
+        toPossible(adyacentes,Cell.WALL,possibleDirections);
 
 
-        if (numberOfCellType(adyacentes,Cell.PATH)>2){
-            System.out.println("funcion para ver si llaves y puerta y guardar posicion de puerta");
-        }
-      /* if ((right==Cell.WALL)&&(up==Cell.WALL)){
-            System.out.println("toco muro a la derecha");
+        if (count==0){
+            count++;
+            return availableActions.get(0);
+        }else if (count==1){
+            count++;
             return availableActions.get(1);
-        }else if ((right==Cell.WALL)&&(up==Cell.WALL)&&(left==Cell.WALL)){
+        }else if (count==2){
+            count++;
             return availableActions.get(2);
-        }*/
-     //   return availableActions.get(3);
+        }else{
+            count++;
+            return availableActions.get(3);
+        }
+
         // 1. HACER UN INDEZ EN ACTIONS
         // 2. GUARDAR
-        //System.out.println(ThreadLocalRandom.current().nextInt(availableActions.size()));
 
 
-
-        if ( isDoor(adyacentes) && maze.isMazeCompleted()){
+      /*  if ( isDoor(adyacentes) && maze.isMazeCompleted()){
             return availableActions.get(adyacentes.indexOf(Cell.DOOR));
         }
-        return availableActions.get(ThreadLocalRandom.current().nextInt(availableActions.size()));
+
+      /*  return availableActions.get(ThreadLocalRandom.current().nextInt(availableActions.size()));*/
     }
-    private Integer numberOfCellType(List<Cell> possiblePositions,Cell celltype){
-        int celltypeCounter=0;
-        for (Cell item: possiblePositions){
-            if (item.toString().equals(celltype)){
-                celltypeCounter++;
+    // funcion que me elimina los muros y tb debo decirle que elimine la direccion de donde vengo
+    private void toPossible(List<Cell> possiblePositions,Cell celltypetoRemove,List<Integer> directions){
+        int size = possiblePositions.size();
+        ArrayList<Integer> indexDirec = new ArrayList<>();
+        for(int i=0; i<size; i++){
+            if (possiblePositions.get(i).equals(celltypetoRemove)){
+                indexDirec.add(i);
             }
         }
-        return celltypeCounter;
+        // elimino al reves para no crear excepciones nunca
+        for (int i=(indexDirec.size()-1);i>=0;i--){
+           directions.remove( (int) indexDirec.get(i));
+       }
+
     }
     private Boolean isDoor(List<Cell> possiblePositions){
         return possiblePositions.indexOf(Cell.DOOR)!=-1;
     }
     // me dice la celda anterior para no repetirla y no ir para atras- redundante-solo ir a una celda
     // que ya se ha pisado si no se puede ir a ningun otro sitio
+    // ++++++++++++++++
     private Position direction(List<Position> walked){
         System.out.println("this is the walked size" + walked.size());
         return walked.get(walked.size()-1);
     }
-    // funcion que me diga si ya he pasado
+    // funcion que me diga si ya he pasado alguna vez
     private Boolean stepped(Position position, List<Position> walked){
         if (walked.indexOf(position)==-1){
             return false;
@@ -84,7 +97,7 @@ public class KeeperAI implements Keeper {
             return true;
         }
     }
-    // funcion que me diga si ya he pasado 2 veces
+    // funcion que me diga si ya he pasado 2 veces o mas??
     private Boolean steppedTwice(Position position, List<Position> walked){
         int stepped=0;
         for (Position item : walked) {

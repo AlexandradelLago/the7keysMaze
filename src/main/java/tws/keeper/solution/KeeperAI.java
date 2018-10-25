@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 import static tws.keeper.model.Action.*;
 
 public class KeeperAI implements Keeper {
@@ -16,7 +15,10 @@ public class KeeperAI implements Keeper {
     private static List<Position> walkedPositions = new ArrayList<Position>();
     private static Action lastAction;
     private static Boolean tracking = false;
-    private static List<Position> keysFoundPosition;
+    private static Position inicio = new Position(0,0);
+    private static List<Position> keysFoundPosition =  Arrays.asList(inicio);
+
+
     /**
      * This Keeper acts according to the Tramoux algorithm
      * @param maze
@@ -24,7 +26,7 @@ public class KeeperAI implements Keeper {
      */
     public Action act(Observable maze) {
 
-        if (keysFoundPosition.size()>1){
+        if (maze.getKeysFound()>1){
             System.out.println("solo para ver");
         }
         // actual position del keeper
@@ -85,8 +87,6 @@ public class KeeperAI implements Keeper {
     /*************************** FUNCIONES ******************************************************************/
 
 
-
-
     private Action decideMove(List<Action> temporaryDirections, Position current, List<Cell> adyacentes, Observable maze){
           /*
              miro si hay llaves y si las llaves no estan en mi array de llaves encontradas- meto las llaves que haya en posiciones encontradas-
@@ -108,11 +108,11 @@ public class KeeperAI implements Keeper {
               for (int i= 0; i<adyacentes.size();i++){
                   if (adyacentes.get(i) == Cell.KEY) {
                       Position keyPosition = getPosition(temporaryDirections.get(i), current);
-                      if (!keysFoundPosition.contains(keyPosition)) {
-                          keysFoundPosition.add(keyPosition);
+             //         if (!keysFoundPosition.contains(keyPosition)) {
+                          keysFoundPosition.add((Position) keyPosition);
                           keysAround += 1;
                           keyIndex = i;
-                      }
+              //        }
                   }
               }
 
@@ -247,13 +247,9 @@ public class KeeperAI implements Keeper {
         return act;
     }
 
-
-
-
     private Position lastPosition(List<Position> movements){
         return movements.get(movements.size()-1);
     }
-
 
     // funcion que me elimina los muros y tb debo decirle que elimine la direccion de donde vengo
     private void removeWall(List<Cell> adyacentCells ,List<Action> indexDir){

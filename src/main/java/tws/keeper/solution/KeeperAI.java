@@ -10,94 +10,162 @@ import static tws.keeper.model.Action.*;
 
 public class KeeperAI implements Keeper {
 
-    private static final List<Action> availableActions = Arrays.asList( GO_RIGHT,GO_UP, GO_LEFT, GO_DOWN);
+    private static final List<Action> availableActions = Arrays.asList(GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT);
     private static List<Position> walkedPositions = new ArrayList<Position>();
     private static Action lastAction;
-
+    private static Boolean backtrack = false;
     /**
-     * This Keeper Artificial Inteligence simply acts randomly
+     * This Keeper acts according to the Tramoux algorithm
      * @param maze
      * @return
      */
+
   int count=0;
     public Action act(Observable maze) {
+
         // actual position del keeper
         Position current = maze.getKeeperPosition();
         // añadire por donde voy pasando
         walkedPositions.add(current);
-        Integer pasos = walkedPositions.size();
-        System.out.println("estos son los pasos " + pasos + "y este es el contador " + count + " y esto es los walked " + walkedPositions);
-        // celdas a donde puedo ir // ir a la derecha , arriba , izquierda o abajo NO SERIA MEJOR USR EL ENUM CELL EN LUGAR DE ESTO???
-        List<Integer> possibleDirections = new ArrayList<>(Arrays.asList(0,1,2,3));
+        int pasos = walkedPositions.size();
+
+        List<Action> tempDir = new ArrayList<>(); // celdas a donde puedo ir
+        tempDir.addAll(availableActions);    //( GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT, );
+        //  ArrayList<Integer>  = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
         List<Cell> adyacentes = adyacents(maze);
-        // AQUI ME QUITO LOS MUROS Y DEBERIA METER AHI DENTRO QQUITAAR LA CELDA DE DONDE VENGO
-        toPossible(adyacentes,Cell.WALL,possibleDirections);
+        if (isDoor(adyacentes) && maze.isMazeCompleted()) {  // 1. SI ES PUERTA Y TENGO TODAS LAS LLAVES TERMINO
+            return availableActions.get(adyacentes.indexOf(Cell.DOOR));
+        } else { // si es mi primer movimiento
+            // 2. ME QUITO LOS MUROS
+            toPossibleMove(adyacentes, Cell.WALL, tempDir);
+            // VER LAS POSICIONES
+            if (pasos > 1)  tempDir = removeLastMovement(tempDir,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HECHO
+        }
+        lastAction=decideMove(tempDir,current);
+        return lastAction;
+    }
 
 
-        // 1. HACER FUNCION PRA QUITARME LA CEDLDA DE DONDE VENGO
-        Integer indexOfPredecessor = adyacentes.indexOf(walkedPositions.get(walkedPositions.size()-1));
 
 
-        /*  1. SI ES PUERTA Y TENGO TODAS LAS LLAVES TERMINO
-            2. ME QUITO LOS MUROS  - HECHO
-            3. ME QUITO DE DONDE VENGO
+    /*************************** FUNCIONES ******************************************************************/
+    private Action decideMove(List<Action> temporaryDirections, Position current){
+          /*
             4. MIRO SI TENGO CELDAAS QUE NO HAYA PASADO -  SI YA HE PASADO ME LA QUITO - FUNCION QUE CALCULA LA POSITION DE LAS CELDAS A LAS QUE PUEDO OPTAR
-               5. SI SOLO TENGO UNA VOY A ESA
+
                6. SI TENGO DOS Y UNA ES LLAVE VOY A ESA
                7. SI NINGUNA ES LLAVE ENTONCES ALEATORIO
                8. SI ES LLAVE - GUARDO POSITION DE LLAVE ENCONTRADA Y AÑADO NUMERO DE LLAVES ENCONTRADAS
                9. GUARDO LA DIRECCION DE LA LLAVE ENCONTRADA.
-
         */
+          if (temporaryDirections.size()==1){ // 5. SI SOLO TENGO UNA VOY A ESA
+              return temporaryDirections.get(0);
+          }else {
 
-       if ( isDoor(adyacentes) && maze.isMazeCompleted()){
-            return availableActions.get(adyacentes.indexOf(Cell.DOOR));
-        }
+              //  List<Position> tempPos = new ArrayList<Position>();
+              // AÑADIR UNA CAPA FUERA PARA VER SI ES KEY Y GUARDAR ESA POSICION
 
+              // voy a la que no haya pisado y a la primera que encuentro-  AQUI DEBERIA AÑADIR LO DE LAS LLAVES
+              // Y ALEATORIEDAD
+              for (int i=0;i<temporaryDirections.size();i++ ){
+                  Position tempPos = getPosition(temporaryDirections.get(i),current);
+                  //tempPos.add();
+                  if (!stepped(tempPos,walkedPositions)){
+                      return temporaryDirections.get(i);
+                  }
+              }
 
-        if (count==0){
-            count++;
-            return availableActions.get(0);
-        }else if (count==1){
-            count++;
-            return availableActions.get(1);
-        }else if (count==2){
-            count++;
-            return availableActions.get(2);
-        }else{
-            count++;
-            return availableActions.get(3);
-        }
-       // return availableActions.get(ThreadLocalRandom.current().nextInt(availableActions.size()));
+              // voy a la que tenga menos pisadas - AQUI LAS LLAVES YA LAS HABRIA COGIDO
+              Position pos = getPosition(temporaryDirections.get(0),current);
+              int min = timesStepped(pos,walkedPositions);
+              int tempDirIndex=0;
+
+              for (int i=0 ;i<temporaryDirections.size();i++ ){
+                  Position tempPos = getPosition(temporaryDirections.get(i),current);
+                  int newMin = timesStepped(tempPos,walkedPositions);
+                  if (newMin < min){
+                      pos = tempPos;
+                      min = newMin;
+                      tempDirIndex=i;
+                  }
+              }
+              return temporaryDirections.get(tempDirIndex);
+          }
+        // return availableActions.get(ThreadLocalRandom.current().nextInt(availableActions.size()));
     }
 
 
-    /*************************** FUNCIONES ******************************************************************/
 
+    private Position getPosition(Action tempDir, Position current){
+        Position nextPos = null;
+        switch (tempDir){
+            case GO_UP:
+                nextPos= new Position(current.getVertical()- 1, current.getHorizontal());
+                break;
+            case GO_DOWN:
+                nextPos = new Position(current.getVertical() + 1, current.getHorizontal());
+                break;
+            case GO_RIGHT:
+                nextPos = new Position(current.getVertical(), current.getHorizontal() + 1);
+                break;
+            case GO_LEFT:
+                nextPos = new Position(current.getVertical() , current.getHorizontal() - 1);
+                break;
+            case DO_NOTHING:
+                nextPos= new Position(current.getVertical(), current.getHorizontal());
+                break;
+        }
+        
+        return nextPos;
+    }
+    private List<Action> removeLastMovement(List<Action> temporaryDirections, Action direction ){
+        switch (direction){
+            case GO_UP:
+                if (temporaryDirections.indexOf(GO_DOWN)!=-1) temporaryDirections.remove(temporaryDirections.indexOf(GO_DOWN));
+                break;
+            case GO_DOWN:
+                if (temporaryDirections.indexOf(GO_UP)!=-1) temporaryDirections.remove(temporaryDirections.indexOf(GO_UP));
+                break;
+            case GO_RIGHT:
+                if (temporaryDirections.indexOf(GO_LEFT)!=-1) temporaryDirections.remove(temporaryDirections.indexOf(GO_LEFT));
+                break;
+            case GO_LEFT:
+                if (temporaryDirections.indexOf(GO_RIGHT)!=-1) {
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_RIGHT));
+                }
+                break;
+        }
+        return temporaryDirections;
+    }
     // funcion que me elimina los muros y tb debo decirle que elimine la direccion de donde vengo
-    private void toPossible(List<Cell> possiblePositions,Cell celltypetoRemove,List<Integer> directions){
+    private void toPossibleMove(List<Cell> possiblePositions,Cell celltypetoRemove,List<Action> indexDir){
+
         int size = possiblePositions.size();
         ArrayList<Integer> indexDirec = new ArrayList<>();
         for(int i=0; i<size; i++){
             if (possiblePositions.get(i).equals(celltypetoRemove)){
-                indexDirec.add(i);
+                indexDirec.add((int) i);
             }
         }
         // elimino al reves para no crear excepciones nunca
         for (int i=(indexDirec.size()-1);i>=0;i--){
-           directions.remove( (int) indexDirec.get(i));
+            // error de remove no se porqueeee
+
+           indexDir.remove((int)indexDirec.get(i));
        }
 
     }
     private Boolean isDoor(List<Cell> possiblePositions){
         return possiblePositions.indexOf(Cell.DOOR)!=-1;
     }
+    private Boolean isKey(List<Cell> possiblePositions){
+        return possiblePositions.indexOf(Cell.KEY)!=-1;
+    }
     // me dice la celda anterior para no repetirla y no ir para atras- redundante-solo ir a una celda
     // que ya se ha pisado si no se puede ir a ningun otro sitio
     // ++++++++++++++++
-    private Position direction(List<Position> walked){
-        System.out.println("this is the walked size" + walked.size());
-        return walked.get(walked.size()-1);
+    private Position lastPosition(List<Position> movements){
+        return movements.get(movements.size()-1);
     }
     // funcion que me diga si ya he pasado alguna vez
     private Boolean stepped(Position position, List<Position> walked){
@@ -108,7 +176,7 @@ public class KeeperAI implements Keeper {
         }
     }
     // funcion que me diga si ya he pasado 2 veces o mas??
-    private Boolean steppedTwice(Position position, List<Position> walked){
+    private Integer timesStepped(Position position, List<Position> walked){
         int stepped=0;
         for (Position item : walked) {
             if (item.equals(position)){
@@ -116,15 +184,23 @@ public class KeeperAI implements Keeper {
             }
             System.out.println(item);
         }
-        return stepped==2;
+        return stepped;
     }
     // funcion que mira alrededor
     private List<Cell> adyacents(Observable maze){
         List<Cell> adyacentes= new ArrayList<Cell>();
-        adyacentes.add(maze.lookRight());
+       // ( GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT, );
         adyacentes.add(maze.lookUp());
-        adyacentes.add(maze.lookLeft());
+        adyacentes.add(maze.lookRight());
         adyacentes.add(maze.lookDown());
+        adyacentes.add(maze.lookLeft());
         return adyacentes;
     }
 }
+
+
+
+
+
+
+

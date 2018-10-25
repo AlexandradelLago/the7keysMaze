@@ -9,15 +9,17 @@ import java.util.List;
 import static tws.keeper.model.Action.*;
 
 public class KeeperAI implements Keeper {
-
     private static final List<Action> availableActions = Arrays.asList(GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT);
     private static List<Action> backtrackedActions;
     private static List<Position> walkedPositions = new ArrayList<Position>();
     private static Action lastAction;
     private static Boolean tracking = false;
-    private static Position inicio = new Position(0,0);
-    private static List<Position> keysFoundPosition =  Arrays.asList(inicio);
+    private static List<Position> keysFoundPosition = new ArrayList<Position>();
 
+    public KeeperAI() {
+        Position inicio = new Position(0,0);
+        keysFoundPosition.add(inicio);
+    }
 
     /**
      * This Keeper acts according to the Tramoux algorithm
@@ -44,49 +46,46 @@ public class KeeperAI implements Keeper {
         List<Cell> adyacentes = adyacents(maze);
 
         if (isDoor(adyacentes)){
-            maze.getKeysFound();
 
             if(maze.isMazeCompleted()){
                 // 1. SI ES PUERTA Y TENGO TODAS LAS LLAVES TERMINO
                 return availableActions.get(adyacentes.indexOf(Cell.DOOR));
             } else{
-
                 // 2. ME QUITO LOS MUROS
-                removeWall(adyacentes, tempDir);
+                removeCell(adyacentes,Cell.WALL,tempDir);
                 // VER LAS POSICIONE
-                if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends
-                    tempDir = removeLastMovement(tempDir,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
-                }
-                lastAction=decideMove(tempDir,current,adyacentes,maze);
+              //  if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends
+              //      tempDir = removeLastMovement(tempDir,adyacentes,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
+               // }
+
+                removeCell(adyacentes,Cell.DOOR,tempDir);
                 if (tracking) {
                     tracking(lastAction);
                 }else{
                     tracking =true;
                 }
+                lastAction=decideMove(tempDir,current,adyacentes,maze);
                 return lastAction;
             }
         }else {
-            removeWall(adyacentes, tempDir);
+        removeCell(adyacentes,Cell.WALL, tempDir);
             // VER LAS POSICIONES
-            if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends
-                tempDir = removeLastMovement(tempDir,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
-            }
-            lastAction=decideMove(tempDir,current,adyacentes,maze);
+           // if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends
+              //  tempDir = removeLastMovement(tempDir,adyacentes,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
+         //   }
+
 
             if (tracking){
                 tracking(lastAction);
             }
+            lastAction=decideMove(tempDir,current,adyacentes,maze);
             return lastAction;
         }
 
     }
 
 
-
-
     /*************************** FUNCIONES ******************************************************************/
-
-
     private Action decideMove(List<Action> temporaryDirections, Position current, List<Cell> adyacentes, Observable maze){
           /*
              miro si hay llaves y si las llaves no estan en mi array de llaves encontradas- meto las llaves que haya en posiciones encontradas-
@@ -109,7 +108,7 @@ public class KeeperAI implements Keeper {
                   if (adyacentes.get(i) == Cell.KEY) {
                       Position keyPosition = getPosition(temporaryDirections.get(i), current);
              //         if (!keysFoundPosition.contains(keyPosition)) {
-                          keysFoundPosition.add((Position) keyPosition);
+                          keysFoundPosition.add(keyPosition);
                           keysAround += 1;
                           keyIndex = i;
               //        }
@@ -139,25 +138,19 @@ public class KeeperAI implements Keeper {
 
     // posicion de una accion dependiendo de la adyacencia
     private Position getPosition(Action tempDir, Position current){
-        Position nextPos = null;
         switch (tempDir){
             case GO_UP:
-                nextPos= new Position(current.getVertical()- 1, current.getHorizontal());
-                break;
+                return new Position(current.getVertical()- 1, current.getHorizontal());
             case GO_DOWN:
-                nextPos = new Position(current.getVertical() + 1, current.getHorizontal());
-                break;
+                return new Position(current.getVertical() + 1, current.getHorizontal());
             case GO_RIGHT:
-                nextPos = new Position(current.getVertical(), current.getHorizontal() + 1);
-                break;
+                return new Position(current.getVertical(), current.getHorizontal() + 1);
             case GO_LEFT:
-                nextPos = new Position(current.getVertical() , current.getHorizontal() - 1);
-                break;
+                return new Position(current.getVertical() , current.getHorizontal() - 1);
             case DO_NOTHING:
-                nextPos= new Position(current.getVertical(), current.getHorizontal());
-                break;
+                return new Position(current.getVertical(), current.getHorizontal());
         }
-        return nextPos;
+        return current;
     }
     private List<Position> getPositionList(List<Action> temporaryDirections , Position current){
         List<Position> tempPosList = new ArrayList<Position>();
@@ -167,7 +160,8 @@ public class KeeperAI implements Keeper {
         return tempPosList;
     }
 
-    // esta me mira cuantas veces he pasado
+    // esta me mira cuantas veces he pasado - por ahora me coge el primer minimo - osea va normalmente
+    // arriba si no derecha si no abajo si no izquierda - poner aleatoriedad de los que sean iguales
     private Integer minSteppedCell(List<Position> tempPosList, Position current){
         Position pos = tempPosList.get(0);
         int min = timesStepped(pos,walkedPositions);
@@ -175,7 +169,6 @@ public class KeeperAI implements Keeper {
         for (int i=0 ;i<tempPosList.size();i++ ){
             int newMin = timesStepped(tempPosList.get(i),walkedPositions);
             if (newMin < min){
-                pos = tempPosList.get(i);
                 min = newMin;
                 tempDirIndex=i;
             }
@@ -202,19 +195,29 @@ public class KeeperAI implements Keeper {
     }
     // funcion que mira alrededor
 
-    private List<Action> removeLastMovement(List<Action> temporaryDirections, Action direction ){
+    private List<Action> removeLastMovement(List<Action> temporaryDirections, List<Cell> ady, Action direction ){
         switch (direction){
             case GO_UP:
-                if (temporaryDirections.indexOf(GO_DOWN)!=-1) temporaryDirections.remove(temporaryDirections.indexOf(GO_DOWN));
+                if (temporaryDirections.indexOf(GO_DOWN)!=-1){
+                    ady.remove(temporaryDirections.indexOf(GO_DOWN));
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_DOWN));
+                }
                 break;
             case GO_DOWN:
-                if (temporaryDirections.indexOf(GO_UP)!=-1) temporaryDirections.remove(temporaryDirections.indexOf(GO_UP));
+                if (temporaryDirections.indexOf(GO_UP)!=-1){
+                    ady.remove(temporaryDirections.indexOf(GO_UP));
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_UP));
+                }
                 break;
             case GO_RIGHT:
-                if (temporaryDirections.indexOf(GO_LEFT)!=-1) temporaryDirections.remove(temporaryDirections.indexOf(GO_LEFT));
+                if (temporaryDirections.indexOf(GO_LEFT)!=-1){
+                    ady.remove(temporaryDirections.indexOf(GO_LEFT));
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_LEFT));
+                }
                 break;
             case GO_LEFT:
                 if (temporaryDirections.indexOf(GO_RIGHT)!=-1) {
+                    ady.remove(temporaryDirections.indexOf(GO_LEFT));
                     temporaryDirections.remove(temporaryDirections.indexOf(GO_RIGHT));
                 }
                 break;
@@ -252,12 +255,12 @@ public class KeeperAI implements Keeper {
     }
 
     // funcion que me elimina los muros y tb debo decirle que elimine la direccion de donde vengo
-    private void removeWall(List<Cell> adyacentCells ,List<Action> indexDir){
+    private void removeCell(List<Cell> adyacentCells , Cell celltoremove, List<Action> indexDir){
 
         int size = adyacentCells.size();
         ArrayList<Integer> indexDirec = new ArrayList<>();
         for(int i=0; i<size; i++){
-            if (adyacentCells.get(i).equals(Cell.WALL)){
+            if (adyacentCells.get(i).equals(celltoremove)){
                 indexDirec.add((int) i);
             }
         }

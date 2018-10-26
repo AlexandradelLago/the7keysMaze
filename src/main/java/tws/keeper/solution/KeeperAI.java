@@ -5,6 +5,7 @@ import tws.keeper.model.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static tws.keeper.model.Action.*;
 
@@ -28,16 +29,13 @@ public class KeeperAI implements Keeper {
      */
     public Action act(Observable maze) {
 
-        if (maze.getKeysFound()>1){
-            System.out.println("solo para ver");
-        }
+
         // actual position del keeper
         Position current = maze.getKeeperPosition();
 
         // añadire por donde voy pasando
         walkedPositions.add(current);
         int pasos = walkedPositions.size();
-
         // Listado de acciones
         List<Action> tempDir = new ArrayList<>();
         tempDir.addAll(availableActions);    // celdas a donde puedo ir ( GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT, );
@@ -47,8 +45,9 @@ public class KeeperAI implements Keeper {
 
         if (isDoor(adyacentes)){
 
-            if(maze.isMazeCompleted()){
+            if(maze.getKeysFound()==maze.getTotalNumberOfKeys()){
                 // 1. SI ES PUERTA Y TENGO TODAS LAS LLAVES TERMINO
+                System.out.println("aqui esta el maze complete y estoy al lado de la puerta");
                 return availableActions.get(adyacentes.indexOf(Cell.DOOR));
             } else{
                 // 2. ME QUITO LOS MUROS
@@ -60,7 +59,7 @@ public class KeeperAI implements Keeper {
 
                 removeCell(adyacentes,Cell.DOOR,tempDir);
                 if (tracking) {
-                    tracking(lastAction);
+                 //   tracking(lastAction);
                 }else{
                     tracking =true;
                 }
@@ -69,14 +68,12 @@ public class KeeperAI implements Keeper {
             }
         }else {
         removeCell(adyacentes,Cell.WALL, tempDir);
-            // VER LAS POSICIONES
-           // if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends
-              //  tempDir = removeLastMovement(tempDir,adyacentes,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
-         //   }
-
+             if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends -no me quito de donde vengo entonces no me quedo en dead ends
+              tempDir = removeLastMovement(tempDir,adyacentes,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
+            }
 
             if (tracking){
-                tracking(lastAction);
+             //   tracking(lastAction);
             }
             lastAction=decideMove(tempDir,current,adyacentes,maze);
             return lastAction;
@@ -89,10 +86,12 @@ public class KeeperAI implements Keeper {
     private Action decideMove(List<Action> temporaryDirections, Position current, List<Cell> adyacentes, Observable maze){
           /*
              miro si hay llaves y si las llaves no estan en mi array de llaves encontradas- meto las llaves que haya en posiciones encontradas-
+
               // ME FALTA COMTEMPLAR que haya mas de una llaves a mano y guardarme la posicion para ir luego
+
                si ya estan en posiciones encontradas no hago nada
                  // voy a la que no haya pisado y a la primera que encuentro- TENGO QUE AÑADIR ALEATORIEDAD -- minSteppedCell
-               7. miro si he pisado las casillas - si no he pisado ninguna aleatorio
+               7. miro si he pisado las casillas - si no he pisado ninguna ALEATORIO - por ahora va ala  primera que no he pisado
                8. si he pisado alguna voy a la que no he pisado y si hay varias ue no he pisado entonces aleatorio
         */
           if (temporaryDirections.size()==1){ // 5. SI SOLO TENGO UNA VOY A ESA
@@ -100,8 +99,6 @@ public class KeeperAI implements Keeper {
           }else {
               //  posiciones de mis adyacentes
               List<Position> tempPosList = getPositionList(temporaryDirections,current);
-
-
               int keyIndex=0;
               int keysAround = 0;
               for (int i= 0; i<adyacentes.size();i++){
@@ -164,17 +161,43 @@ public class KeeperAI implements Keeper {
     // arriba si no derecha si no abajo si no izquierda - poner aleatoriedad de los que sean iguales
     private Integer minSteppedCell(List<Position> tempPosList, Position current){
         Position pos = tempPosList.get(0);
+        ArrayList<Integer> stepsPerCell = new ArrayList<Integer>();
+        stepsPerCell.clear();
         int min = timesStepped(pos,walkedPositions);
+        stepsPerCell.add(min);
+
+
+
         int tempDirIndex=0;
-        for (int i=0 ;i<tempPosList.size();i++ ){
+        for (int i=1 ;i<tempPosList.size();i++ ){
             int newMin = timesStepped(tempPosList.get(i),walkedPositions);
-            if (newMin < min){
+            stepsPerCell.add(newMin);
+            if (stepsPerCell.get(i) < min){
                 min = newMin;
                 tempDirIndex=i;
             }
         }
-        return tempDirIndex;
+        // tengo array con el número de veces que se ha pisado cada celda de alrededor [1,2,1]
+        // tengo el indice de la celda con menos pisadas
+        ArrayList<Integer> cellWithsameMinSteps = new ArrayList<Integer>();
+        for (int i= 0; i< stepsPerCell.size();i++){
+            if (stepsPerCell.get(i)==stepsPerCell.get(tempDirIndex)){
+                cellWithsameMinSteps.add(i);
+            }
+        }
+        int index;
+        System.out.println(min);
+        System.out.println(stepsPerCell);
+        System.out.println(cellWithsameMinSteps);
+        index = cellWithsameMinSteps.get(ThreadLocalRandom.current().nextInt(cellWithsameMinSteps.size()));
+        System.out.println(index);
+        return index;
+
+       // return tempDirIndex;
     }
+
+
+
     private Boolean stepped(Position position, List<Position> walked){
         if (walked.indexOf(position)==-1){
             return false;
@@ -189,12 +212,10 @@ public class KeeperAI implements Keeper {
             if (item.equals(position)){
                 stepped++;
             }
-            System.out.println(item);
         }
         return stepped;
     }
     // funcion que mira alrededor
-
     private List<Action> removeLastMovement(List<Action> temporaryDirections, List<Cell> ady, Action direction ){
         switch (direction){
             case GO_UP:
@@ -217,7 +238,7 @@ public class KeeperAI implements Keeper {
                 break;
             case GO_LEFT:
                 if (temporaryDirections.indexOf(GO_RIGHT)!=-1) {
-                    ady.remove(temporaryDirections.indexOf(GO_LEFT));
+                    ady.remove(temporaryDirections.indexOf(GO_RIGHT));
                     temporaryDirections.remove(temporaryDirections.indexOf(GO_RIGHT));
                 }
                 break;
@@ -249,7 +270,6 @@ public class KeeperAI implements Keeper {
         }
         return act;
     }
-
     private Position lastPosition(List<Position> movements){
         return movements.get(movements.size()-1);
     }

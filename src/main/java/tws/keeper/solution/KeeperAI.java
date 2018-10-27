@@ -54,8 +54,6 @@ public class KeeperAI implements Keeper {
 
             removeCell(adyacentes,Cell.WALL,tempDir);
             removeCell(adyacentes,Cell.DOOR,tempDir);
-
-
         //    lastAction=decideMoveRightHand(tempDir,current,adyacentes,maze, lastAction);
             lastAction=decideMove(tempDir,current,adyacentes,maze);
 
@@ -108,7 +106,6 @@ public class KeeperAI implements Keeper {
         }
 
     }
-
     private Integer moveRight(List<Action> tempDir, Action dir){
         switch (dir){
             case GO_UP:
@@ -150,6 +147,7 @@ public class KeeperAI implements Keeper {
         }
         return tempDir.indexOf(dir);
     }
+
 
     private Action decideMove(List<Action> temporaryDirections, Position current, List<Cell> adyacentes, Observable maze){
           /*
@@ -284,7 +282,7 @@ public class KeeperAI implements Keeper {
         }
         return stepped;
     }
-    // funcion que mira alrededor
+    // funcion que mira elimina de donde vengo si tengo mas opciones
     private List<Action> removeLastMovement(List<Action> temporaryDirections, List<Cell> ady, Action direction ){
         switch (direction){
             case GO_UP:

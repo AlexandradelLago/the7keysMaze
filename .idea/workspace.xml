@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="fc0b7d8e-c0d1-4de1-8561-f45fb6f02050" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/js/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/functions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/solution/KeeperAI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/solution/KeeperAI$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tws/keeper/solution/KeeperAI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tws/keeper/solution/KeeperAI.class" afterDir="false" />
     </list>
@@ -30,48 +35,52 @@
           <entry key="project.open.time.14" value="2" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.27" value="1" />
+          <entry key="project.open.time.32" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="10" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="46" />
+          <entry key="class" value="53" />
           <entry key="css" value="2" />
           <entry key="html" value="3" />
-          <entry key="java" value="38" />
+          <entry key="java" value="41" />
           <entry key="js" value="3" />
-          <entry key="md" value="2" />
+          <entry key="md" value="3" />
           <entry key="png" value="6" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="46" />
+          <entry key="CLASS" value="53" />
           <entry key="CSS" value="2" />
           <entry key="HTML" value="3" />
           <entry key="Image" value="6" />
-          <entry key="JAVA" value="38" />
+          <entry key="JAVA" value="41" />
           <entry key="JavaScript" value="3" />
-          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="PLAIN_TEXT" value="3" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="13698" />
-          <entry key="js" value="5" />
+          <entry key="html" value="56" />
+          <entry key="java" value="14970" />
+          <entry key="js" value="131" />
+          <entry key="md" value="404" />
           <entry key="txt" value="15" />
           <entry key="xml" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="13698" />
-          <entry key="JavaScript" value="5" />
-          <entry key="PLAIN_TEXT" value="15" />
+          <entry key="HTML" value="56" />
+          <entry key="JAVA" value="14970" />
+          <entry key="JavaScript" value="131" />
+          <entry key="PLAIN_TEXT" value="419" />
           <entry key="XML" value="13" />
         </counts>
       </usages-collector>
@@ -79,19 +88,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="244" column="9" lean-forward="true" selection-start-line="244" selection-start-column="9" selection-end-line="244" selection-end-column="9" />
+            <state relative-caret-position="102">
+              <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#KeeperAI#0;class#KeeperAI#0" />
+                <element signature="method#backtrack#0;class#KeeperAI#0" />
+                <element signature="method#decideMove#0;class#KeeperAI#0" />
                 <element signature="method#adyacents#0;class#KeeperAI#0" />
                 <element signature="method#getPosition#0;class#KeeperAI#0" />
                 <element signature="method#getPositionList#0;class#KeeperAI#0" />
+                <element signature="method#minSteppedCell#0;class#KeeperAI#0" />
                 <element signature="method#stepped#0;class#KeeperAI#0" />
                 <element signature="method#timesStepped#0;class#KeeperAI#0" />
-                <element signature="method#tracking#0;class#KeeperAI#0" />
+                <element signature="method#removeLastMovement#0;class#KeeperAI#0" />
                 <element signature="method#switchAction#0;class#KeeperAI#0" />
                 <element signature="method#lastPosition#0;class#KeeperAI#0" />
                 <element signature="method#removeCell#0;class#KeeperAI#0" />
@@ -103,10 +116,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="376">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/model/Action.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/model/Maze.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1503">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="93">
+              <caret line="152" selection-start-line="152" selection-end-line="152" />
               <folding>
                 <element signature="e#917#1878#0" />
               </folding>
@@ -115,40 +146,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/functions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="66" column="19" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/static/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="35" column="10" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/springboot/MazeApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/springboot/MazeRestApi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state relative-caret-position="525">
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
             </state>
           </provider>
         </entry>
@@ -175,8 +176,11 @@
       <find>ArrayList&lt;Action&gt;</find>
       <find>availableActions</find>
       <find>temporary</find>
-      <find>system</find>
       <find>startRobot</find>
+      <find>response</find>
+      <find>time</find>
+      <find>system</find>
+      <find>system.outa</find>
     </findStrings>
     <replaceStrings>
       <replace>List&lt;Action&gt;</replace>
@@ -190,8 +194,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/index.html" />
         <option value="$PROJECT_DIR$/src/main/resources/static/js/functions.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" />
       </list>
     </option>
   </component>
@@ -203,9 +209,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="615" />
+    <option name="x" value="609" />
     <option name="y" value="23" />
-    <option name="width" value="825" />
+    <option name="width" value="831" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -331,12 +337,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ToolWindowEvent Log.ShowToolbar" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540547878253" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540630284230" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="gradle.compiler" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -423,7 +429,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="615" y="23" width="825" height="877" extended-state="0" />
+    <frame x="609" y="23" width="831" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.0013888889" />
@@ -435,8 +441,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49225268" visible="true" weight="0.28908187" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8073908" weight="0.191067" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49225268" weight="0.28163773" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.8073908" visible="true" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32771084" />
@@ -492,57 +498,9 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>53</line>
+          <line>33</line>
           <properties />
-          <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>163</line>
-          <properties />
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>166</line>
-          <properties />
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>71</line>
-          <properties />
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>219</line>
-          <properties />
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>222</line>
-          <properties />
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>228</line>
-          <properties />
-          <option name="timeStamp" value="108" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>234</line>
-          <properties />
-          <option name="timeStamp" value="109" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>240</line>
-          <properties />
-          <option name="timeStamp" value="110" />
+          <option name="timeStamp" value="122" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -552,8 +510,18 @@
     <watches-manager>
       <configuration name="Application">
         <watch expression="ex" />
+        <watch expression="backtrackedActions.get(64)" language="JAVA" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>backtrackedActions.get(64)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/model/package-info.java" />
@@ -597,9 +565,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
@@ -611,13 +576,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" selection-start-line="5" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/model/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" selection-start-line="5" selection-end-line="14" />
         </state>
       </provider>
     </entry>
@@ -677,93 +635,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.7.RELEASE/spring-webmvc-5.0.7.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/springboot/MazeApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="425" selection-start-line="425" selection-end-line="425" />
+        <state relative-caret-position="120">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.7.RELEASE/spring-webmvc-5.0.7.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="483" selection-start-line="483" selection-end-line="483" />
+        <state relative-caret-position="486">
+          <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.7.RELEASE/spring-web-5.0.7.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
+        <state relative-caret-position="318">
+          <caret line="52" column="35" lean-forward="true" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/springboot/MazeRestApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/model/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.7.RELEASE/spring-webmvc-5.0.7.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
-          <caret line="570" selection-start-line="570" selection-end-line="570" />
+          <caret line="571" selection-start-line="571" selection-end-line="571" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.7.RELEASE/spring-webmvc-5.0.7.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="244" column="9" lean-forward="true" selection-start-line="244" selection-start-column="9" selection-end-line="244" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#adyacents#0;class#KeeperAI#0" />
-            <element signature="method#getPosition#0;class#KeeperAI#0" />
-            <element signature="method#getPositionList#0;class#KeeperAI#0" />
-            <element signature="method#stepped#0;class#KeeperAI#0" />
-            <element signature="method#timesStepped#0;class#KeeperAI#0" />
-            <element signature="method#tracking#0;class#KeeperAI#0" />
-            <element signature="method#switchAction#0;class#KeeperAI#0" />
-            <element signature="method#lastPosition#0;class#KeeperAI#0" />
-            <element signature="method#removeCell#0;class#KeeperAI#0" />
-            <element signature="method#isDoor#0;class#KeeperAI#0" />
-            <element signature="method#isKey#0;class#KeeperAI#0" />
-          </folding>
+        <state relative-caret-position="155">
+          <caret line="425" selection-start-line="425" selection-end-line="425" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.7.RELEASE/spring-webmvc-5.0.7.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="488" selection-start-line="488" selection-end-line="488" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.7.RELEASE/spring-web-5.0.7.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="128" selection-start-line="128" selection-end-line="129" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/model/Maze.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1503">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="93">
+          <caret line="152" selection-start-line="152" selection-end-line="152" />
           <folding>
             <element signature="e#917#1878#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/js/functions.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="66" column="19" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/springboot/MazeRestApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/springboot/MazeApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        <state relative-caret-position="102">
+          <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#KeeperAI#0;class#KeeperAI#0" />
+            <element signature="method#backtrack#0;class#KeeperAI#0" />
+            <element signature="method#decideMove#0;class#KeeperAI#0" />
+            <element signature="method#adyacents#0;class#KeeperAI#0" />
+            <element signature="method#getPosition#0;class#KeeperAI#0" />
+            <element signature="method#getPositionList#0;class#KeeperAI#0" />
+            <element signature="method#minSteppedCell#0;class#KeeperAI#0" />
+            <element signature="method#stepped#0;class#KeeperAI#0" />
+            <element signature="method#timesStepped#0;class#KeeperAI#0" />
+            <element signature="method#removeLastMovement#0;class#KeeperAI#0" />
+            <element signature="method#switchAction#0;class#KeeperAI#0" />
+            <element signature="method#lastPosition#0;class#KeeperAI#0" />
+            <element signature="method#removeCell#0;class#KeeperAI#0" />
+            <element signature="method#isDoor#0;class#KeeperAI#0" />
+            <element signature="method#isKey#0;class#KeeperAI#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="35" column="10" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
         </state>
       </provider>
     </entry>

@@ -11,7 +11,7 @@ import static tws.keeper.model.Action.*;
 
 public class KeeperAI implements Keeper {
     private static final List<Action> availableActions = Arrays.asList(GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT);
-    private static List<Action> backtrackedActions;
+    private static List<Action> backtrackedActions= new ArrayList<Action>();
     private static List<Position> walkedPositions = new ArrayList<Position>();
     private static Action lastAction;
     private static Boolean tracking = false;
@@ -20,6 +20,7 @@ public class KeeperAI implements Keeper {
     public KeeperAI() {
         Position inicio = new Position(0,0);
         keysFoundPosition.add(inicio);
+        backtrackedActions.add(DO_NOTHING);
     }
 
     /**
@@ -28,54 +29,59 @@ public class KeeperAI implements Keeper {
      * @return
      */
     public Action act(Observable maze) {
-
+        System.out.println(backtrackedActions);
 
         // actual position del keeper
         Position current = maze.getKeeperPosition();
-
         // añadire por donde voy pasando
         walkedPositions.add(current);
         int pasos = walkedPositions.size();
         // Listado de acciones
         List<Action> tempDir = new ArrayList<>();
         tempDir.addAll(availableActions);    // celdas a donde puedo ir ( GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT, );
-
         // que tengo en cada celda alrededor
         List<Cell> adyacentes = adyacents(maze);
 
-        if (isDoor(adyacentes)){
+        // if I found all keys and I have already crossed by the door before then backtrack
+        if (maze.getKeysFound()==maze.getTotalNumberOfKeys()&&tracking){
+            return backtrack();
+            // if I find the door and
+        }else if(isDoor(adyacentes) && (maze.getKeysFound()==maze.getTotalNumberOfKeys())){
+            // 1. SI ES PUERTA Y TENGO TODAS LAS LLAVES TERMINO
+            System.out.println("aqui esta el maze complete y estoy al lado de la puerta");
+            return availableActions.get(adyacentes.indexOf(Cell.DOOR));
+        }else if (isDoor(adyacentes)){
 
-            if(maze.getKeysFound()==maze.getTotalNumberOfKeys()){
-                // 1. SI ES PUERTA Y TENGO TODAS LAS LLAVES TERMINO
-                System.out.println("aqui esta el maze complete y estoy al lado de la puerta");
-                return availableActions.get(adyacentes.indexOf(Cell.DOOR));
-            } else{
-                // 2. ME QUITO LOS MUROS
-                removeCell(adyacentes,Cell.WALL,tempDir);
-                // VER LAS POSICIONE
-              //  if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends
-              //      tempDir = removeLastMovement(tempDir,adyacentes,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
-               // }
+            removeCell(adyacentes,Cell.WALL,tempDir);
+            removeCell(adyacentes,Cell.DOOR,tempDir);
 
-                removeCell(adyacentes,Cell.DOOR,tempDir);
-                if (tracking) {
-                 //   tracking(lastAction);
-                }else{
-                    tracking =true;
-                }
-                lastAction=decideMove(tempDir,current,adyacentes,maze);
-                return lastAction;
+
+        //    lastAction=decideMoveRightHand(tempDir,current,adyacentes,maze, lastAction);
+            lastAction=decideMove(tempDir,current,adyacentes,maze);
+
+           if (tracking) {
+                backtrackedActions.clear();
+                backtrackedActions.add(lastAction);
+            }else{
+                tracking =true;
+                backtrackedActions.add(lastAction);
             }
+            return lastAction;
+
         }else {
         removeCell(adyacentes,Cell.WALL, tempDir);
+
              if ((tempDir.size()>1)&&(pasos>1)){ // con esto me quito deadends -no me quito de donde vengo entonces no me quedo en dead ends
               tempDir = removeLastMovement(tempDir,adyacentes,lastAction); //  3. ME QUITO DE DONDE VENGO  -- HEC
             }
 
+           lastAction=decideMove(tempDir,current,adyacentes,maze);
+            //lastAction=decideMoveRightHand(tempDir,current,adyacentes,maze, lastAction);
+
             if (tracking){
-             //   tracking(lastAction);
+                backtrackedActions.add(lastAction);
             }
-            lastAction=decideMove(tempDir,current,adyacentes,maze);
+
             return lastAction;
         }
 
@@ -83,6 +89,68 @@ public class KeeperAI implements Keeper {
 
 
     /*************************** FUNCIONES ******************************************************************/
+
+    private Action  backtrack(){
+        Action backtrackAction = switchAction(backtrackedActions.get(backtrackedActions.size()-1));
+        backtrackedActions.remove(backtrackedActions.size()-1);
+        if (backtrackedActions.size()==1){
+            tracking=false;
+        }
+        return backtrackAction;
+    }
+
+    // in case i wanna do the mano en la derecha
+    private Action decideMoveRightHand(List<Action> temporaryDirections, Position current, List<Cell> adyacentes, Observable maze,Action act){
+        if (temporaryDirections.size()==1){ // 5. SI SOLO TENGO UNA VOY A ESA
+            return temporaryDirections.get(0);
+        }else {
+            return temporaryDirections.get(moveRight(temporaryDirections,lastAction));
+        }
+
+    }
+
+    private Integer moveRight(List<Action> tempDir, Action dir){
+        switch (dir){
+            case GO_UP:
+                if (tempDir.contains(GO_RIGHT)){
+                    dir=GO_RIGHT;
+                }else if (tempDir.contains(GO_UP)){
+                    dir=GO_UP;
+                }else if (tempDir.contains(GO_LEFT)){
+                    dir=GO_LEFT;
+                }
+                break;
+            case GO_RIGHT:
+                if (tempDir.contains(GO_DOWN)){
+                    dir=GO_DOWN;
+                }else if (tempDir.contains(GO_RIGHT)){
+                    dir=GO_RIGHT;
+                }else if (tempDir.contains(GO_UP)){
+                    dir=GO_UP;
+                }
+                break;
+            case GO_DOWN:
+                if (tempDir.contains(GO_LEFT)){
+                    dir=GO_LEFT;
+                }else if (tempDir.contains(GO_DOWN)){
+                    dir=GO_DOWN;
+                }else if (tempDir.contains(GO_RIGHT)){
+                    dir=GO_RIGHT;
+                }
+                break;
+            case GO_LEFT:
+                if (tempDir.contains(GO_UP)){
+                    dir=GO_UP;
+                }else if (tempDir.contains(GO_LEFT)){
+                    dir=GO_LEFT;
+                }else if (tempDir.contains(GO_DOWN)){
+                    dir=GO_DOWN;
+                }
+                break;
+        }
+        return tempDir.indexOf(dir);
+    }
+
     private Action decideMove(List<Action> temporaryDirections, Position current, List<Cell> adyacentes, Observable maze){
           /*
              miro si hay llaves y si las llaves no estan en mi array de llaves encontradas- meto las llaves que haya en posiciones encontradas-
@@ -101,6 +169,7 @@ public class KeeperAI implements Keeper {
               List<Position> tempPosList = getPositionList(temporaryDirections,current);
               int keyIndex=0;
               int keysAround = 0;
+              // REVISAR -- las llaves aqui cojo solo la primera -- optimizar
               for (int i= 0; i<adyacentes.size();i++){
                   if (adyacentes.get(i) == Cell.KEY) {
                       Position keyPosition = getPosition(temporaryDirections.get(i), current);
@@ -113,6 +182,10 @@ public class KeeperAI implements Keeper {
               }
 
               if (keysAround!=0){
+                  System.out.println("las adyacentes " + adyacentes);
+                  System.out.println("this is keys around " + keysAround);
+                  System.out.println("las direcciones posibles " +temporaryDirections);
+                  System.out.println("la direccion elegida " + keyIndex);
                   return temporaryDirections.get(keyIndex);
               }else{
 
@@ -166,8 +239,6 @@ public class KeeperAI implements Keeper {
         int min = timesStepped(pos,walkedPositions);
         stepsPerCell.add(min);
 
-
-
         int tempDirIndex=0;
         for (int i=1 ;i<tempPosList.size();i++ ){
             int newMin = timesStepped(tempPosList.get(i),walkedPositions);
@@ -186,17 +257,15 @@ public class KeeperAI implements Keeper {
             }
         }
         int index;
-        System.out.println(min);
-        System.out.println(stepsPerCell);
-        System.out.println(cellWithsameMinSteps);
+      //  System.out.println(min);
+      //  System.out.println(stepsPerCell);
+      //  System.out.println(cellWithsameMinSteps);
         index = cellWithsameMinSteps.get(ThreadLocalRandom.current().nextInt(cellWithsameMinSteps.size()));
-        System.out.println(index);
+        //System.out.println(index);
         return index;
 
        // return tempDirIndex;
     }
-
-
 
     private Boolean stepped(Position position, List<Position> walked){
         if (walked.indexOf(position)==-1){
@@ -246,12 +315,7 @@ public class KeeperAI implements Keeper {
         return temporaryDirections;
     }
 
-    // este lo voy a usar en el backtrack
-    private void tracking(Action action){
-        backtrackedActions.add(action);
-        // funcion para ir guardando las posiciones por las que pasa desde que encuentra la puerta hasta que encuentra la última llave
-        // si encuentro la puerta despues de haber encontrado la llave no se hace nada de esto
-    }
+
     private Action switchAction (Action act){
 
         switch (act){

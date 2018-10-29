@@ -49,10 +49,7 @@ function react() {
 // Hit the /act endpoint to make the keeper act
 function robotAct() {
   timeFinding+=50;
-  console.log("HOLA DAVINIA")
   var xhttp = new XMLHttpRequest();
-  document.getElementById("timeFinding").innerHTML = "HOLA DAVINIA"
-  console.log(timeFinding);
   xhttp.onreadystatechange = function() { if (this.readyState == 4 && this.status == 200) getStatus(); };
   xhttp.open("GET", "/api/act/", true);
   xhttp.send();

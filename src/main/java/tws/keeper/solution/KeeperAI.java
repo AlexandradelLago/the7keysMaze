@@ -22,7 +22,9 @@ public class KeeperAI implements Keeper {
     }
 
     /**
-     * This Keeper acts according to the Tramoux algorithm
+     * This Keeper acts according to the Tramoux algotythm
+     * Checkes the surrounding cells and if no stepped goes to them randomly
+     * In case all of them are alreadby been walked then goes to the less used
      *
      * @param maze the maze
      * @return something
@@ -30,20 +32,11 @@ public class KeeperAI implements Keeper {
 
     public Action act(Observable maze) {
 
-
-
         // Actual position
-
         Position current = maze.getKeeperPosition();
 
-        // If I am backtracking I dont add the
-
+        // I include it in the walked
         walkedPositions.add(current);
-
-
-
-
-        int pasos = walkedPositions.size();
 
         // I make a copy of available actions to be able to remove them etc
         List<Action> tempAvailableActions = new ArrayList<>();
@@ -53,23 +46,21 @@ public class KeeperAI implements Keeper {
         List<Cell> adyacentes = adyacents(maze);
 
 
-
-
         // if I found all keys and I have already crossed by the door before then backtrack
+        if (isDoor(adyacentes)&&maze.getKeysFound()==maze.getTotalNumberOfKeys()){
+            return availableActions.get(adyacentes.indexOf(Cell.DOOR));
 
-        if (isDoor(adyacentes)){
-            if (maze.getKeysFound()==maze.getTotalNumberOfKeys()&&tracking){
-                return backtrackToDoor();
-            }else if (maze.getTotalNumberOfKeys()==maze.getKeysFound()){
-                return availableActions.get(adyacentes.indexOf(Cell.DOOR));
-            }else{
-                removeCell(adyacentes, Cell.WALL, tempAvailableActions);
+        }else if (maze.getKeysFound()==maze.getTotalNumberOfKeys()&&tracking){
+            return backtrackToDoor();
 
-                lastAction = decideMove(tempAvailableActions, current,walkedPositions);
-                checkIftracking();
-                return lastAction;
-            }
-        }else{
+        }else if (maze.getKeysFound()==maze.getTotalNumberOfKeys()&& isDoor(adyacentes)){
+            removeCell(adyacentes, Cell.WALL, tempAvailableActions);
+            lastAction = decideMove(tempAvailableActions, current, walkedPositions);
+            // if I am tracking I put it 0 if not yet started I do
+            setOrClearTracking();
+            return lastAction;
+
+        } else {
             removeCell(adyacentes, Cell.WALL, tempAvailableActions);
             // If there is a cell with a key I go to that cell if no I check where to go
 
@@ -278,7 +269,7 @@ public class KeeperAI implements Keeper {
 
 
 
-        if (allStepped(adyPositions)&&adyPositions.size()<3){
+      /*  if (allStepped(adyPositions)&&adyPositions.size()<3){
             System.out.println("este es mi backtrackcount "+backtrackCount);
             backtrackCount+=1;
             System.out.println("este es mi backtrackcount "+backtrackCount);
@@ -288,12 +279,13 @@ public class KeeperAI implements Keeper {
 
             System.out.println("el movimiento "+ move);
             return move;
-        }else if (allStepped(adyPositions)&&adyPositions.size()>2) {
+        }else */if (allStepped(adyPositions)) {
             // if junction of 3 then go to the less stepped
             List<Integer> stepsInAdyCell = new ArrayList<Integer>();
             for (int i=0;i<adyPositions.size();i++){
                 stepsInAdyCell.add(timesStepped(adyPositions.get(i),walkedPos));
             }
+
 
             int minIndex = stepsInAdyCell.indexOf(Collections.min(stepsInAdyCell));
             Position pos = adyPositions.get(minIndex);
@@ -305,16 +297,15 @@ public class KeeperAI implements Keeper {
             int indexM= randomOftheNonSteppedCell(adyPositions);
              move = tempAvailableActions.get(indexM);
              System.out.println(move);
-            while (walkedPos.get(walkedPos.size()-2)!=current){
-                walkedPos.remove(walkedPos.size()-1);
-            }
+           // while (walkedPos.get(walkedPos.size()-2)!=current){
+           //     walkedPos.remove(walkedPos.size()-1);
+           // }
             System.out.println("estoy en el de no back track , con opciones ");
             backtrackCount=0;
             return move;
         }
 
     }
-
 
 
     public Boolean stepped(Position position, List<Position> walked) {
@@ -354,7 +345,7 @@ public class KeeperAI implements Keeper {
     /**
      * Function that checkes if we already passed by a door to track the steps
      */
-    private void checkIftracking(){
+    private void setOrClearTracking(){
         // I already was tracking so I clean the previous path
         if (tracking) {
             backtrackedActions.clear();

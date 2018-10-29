@@ -40,9 +40,9 @@ public class KeeperAI implements Keeper {
 
         // I make a copy of available actions to be able to remove them etc
         List<Action> tempAvailableActions = new ArrayList<>();
-        tempAvailableActions.addAll(availableActions);    // celdas a donde puedo ir ( GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT, );
+        tempAvailableActions.addAll(availableActions);    // copy of available actions to be able to remove not possible
 
-        // What is every cell I am surrounded by
+        // What is in every cell I am surrounded by
         List<Cell> adyacentes = adyacents(maze);
 
 
@@ -63,8 +63,8 @@ public class KeeperAI implements Keeper {
         } else {
             removeCell(adyacentes, Cell.WALL, tempAvailableActions);
             // If there is a cell with a key I go to that cell if no I check where to go
-
             if (keyIndex(adyacentes)!=-1) {
+                // if there is a key adyacent then It goes first there
                 lastAction= tempAvailableActions.get(keyIndex(adyacentes));
             }else{
                lastAction = decideMove(tempAvailableActions, current, walkedPositions);
@@ -72,13 +72,12 @@ public class KeeperAI implements Keeper {
 
             if (tracking) { backtrackedActions.add(lastAction); }
 
-
             return lastAction;
         }
 
     }
 
-    /*************************** FUNCIONES ******************************************************************/
+    /*********************************************************************************************/
 
 
     /**
@@ -105,7 +104,6 @@ public class KeeperAI implements Keeper {
             return DO_NOTHING;
         }
     }
-
 
     /**
      * TESTED  Function that gives the position given and action
@@ -181,6 +179,105 @@ public class KeeperAI implements Keeper {
         return adyacentCells.indexOf(Cell.KEY);
     }
 
+
+    /**
+     * TESTED - function that removes the cell I am telling
+     * @param adyacentCells
+     * @param celltoremove
+     * @param indexDir
+     */
+    public void removeCell(List<Cell> adyacentCells, Cell celltoremove, List<Action> indexDir) {
+
+        int size = adyacentCells.size();
+        ArrayList<Integer> indexDirec = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (adyacentCells.get(i).equals(celltoremove)) {
+                indexDirec.add((int) i);
+            }
+        }
+        // elimino al reves para no crear excepciones nunca
+        for (int i = (indexDirec.size() - 1); i >= 0; i--) {
+            adyacentCells.remove((int) indexDirec.get(i));
+            indexDir.remove((int) indexDirec.get(i));
+        }
+
+    }
+
+    /**
+     *  Function that gives the adyacent cells of the current position
+     * @param maze - uring the observable interface
+     * @return -- list of cell adyacents in order UP-RIGHT-DOWN-LEFT
+     *
+     */
+    public List<Cell> adyacents(Observable maze) {
+        List<Cell> adyacentes = new ArrayList<Cell>();
+        // ( GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT, );
+        adyacentes.add(maze.lookUp());
+        adyacentes.add(maze.lookRight());
+        adyacentes.add(maze.lookDown());
+        adyacentes.add(maze.lookLeft());
+        return adyacentes;
+    }
+
+    /**
+     * Function that checkes if we already passed by a door to track the steps or to reset the
+     * backtrack path to the door
+     */
+    private void setOrClearTracking(){
+        // I already was tracking so I clean the previous path
+        if (tracking) {
+            backtrackedActions.clear();
+            backtrackedActions.add(lastAction);
+        } else {
+            tracking = true;
+            backtrackedActions.add(lastAction);
+        }
+    }
+
+    /**
+     *  Function that choosed the opposite action of the list to backtrack to reach the door
+     *  removes the last one movement also
+     * @return -the opposite action of what is saved in the list
+     */
+    private Action backtrackToDoor() {
+        Action backtrackAction = switchAction(backtrackedActions.get(backtrackedActions.size() - 1));
+        backtrackedActions.remove(backtrackedActions.size() - 1);
+        if (backtrackedActions.size() == 1) {
+            tracking = false;
+        }
+        return backtrackAction;
+    }
+
+    /**
+     *  Function that returns how many times a provided position has been stepped by
+     *  checking the walked positions list
+     * @param position - position to check
+     * @param walked - list of positions where the wizard has being
+     * @return - times the wizard has been in that position
+     */
+    public Integer timesStepped(Position position, List<Position> walked) {
+        int stepped = 0;
+        for (Position item : walked) {
+            if (item.equals(position)) {
+                stepped++;
+            }
+        }
+        return stepped;
+    }
+    /**
+     * Function that says if a position has been ever visited
+     * @param position
+     * @param walked
+     * @return boolean
+     */
+    public Boolean stepped(Position position, List<Position> walked) {
+        if (walked.indexOf(position) == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      *  TESTED - function that calcultes if all cells around are stepped
      * @param adyPositions - position of the available cells around of the keeper
@@ -232,28 +329,6 @@ public class KeeperAI implements Keeper {
         }
     }
 
-    /**
-     * TESTED - function that removes the cell I am telling
-     * @param adyacentCells
-     * @param celltoremove
-     * @param indexDir
-     */
-    public void removeCell(List<Cell> adyacentCells, Cell celltoremove, List<Action> indexDir) {
-
-        int size = adyacentCells.size();
-        ArrayList<Integer> indexDirec = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            if (adyacentCells.get(i).equals(celltoremove)) {
-                indexDirec.add((int) i);
-            }
-        }
-        // elimino al reves para no crear excepciones nunca
-        for (int i = (indexDirec.size() - 1); i >= 0; i--) {
-            adyacentCells.remove((int) indexDirec.get(i));
-            indexDir.remove((int) indexDirec.get(i));
-        }
-
-    }
 
     /*+++++++++++++++++ NON TESTD YET +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -308,66 +383,13 @@ public class KeeperAI implements Keeper {
     }
 
 
-    public Boolean stepped(Position position, List<Position> walked) {
-        if (walked.indexOf(position) == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    // funcion que me diga si ya he pasado 2 veces o mas??
-    public Integer timesStepped(Position position, List<Position> walked) {
-        int stepped = 0;
-        for (Position item : walked) {
-            if (item.equals(position)) {
-                stepped++;
-            }
-        }
-        return stepped;
-    }
 
     public Position lastPosition(List<Position> movements) {
         return movements.get(movements.size() - 1);
     }
 
-    // mira las adyacentes y ve que CELDA es
-    public List<Cell> adyacents(Observable maze) {
-        List<Cell> adyacentes = new ArrayList<Cell>();
-        // ( GO_UP, GO_RIGHT, GO_DOWN, GO_LEFT, );
-        adyacentes.add(maze.lookUp());
-        adyacentes.add(maze.lookRight());
-        adyacentes.add(maze.lookDown());
-        adyacentes.add(maze.lookLeft());
-        return adyacentes;
-    }
 
-    /**
-     * Function that checkes if we already passed by a door to track the steps
-     */
-    private void setOrClearTracking(){
-        // I already was tracking so I clean the previous path
-        if (tracking) {
-            backtrackedActions.clear();
-            backtrackedActions.add(lastAction);
-        } else {
-            tracking = true;
-            backtrackedActions.add(lastAction);
-        }
-    }
-
-    /**
-     *  Function that choosed the opposite action of the list to backtrack to reach the door
-     * @return
-     */
-    private Action backtrackToDoor() {
-        Action backtrackAction = switchAction(backtrackedActions.get(backtrackedActions.size() - 1));
-        backtrackedActions.remove(backtrackedActions.size() - 1);
-        if (backtrackedActions.size() == 1) {
-            tracking = false;
-        }
-        return backtrackAction;
-    }
 
 
 }

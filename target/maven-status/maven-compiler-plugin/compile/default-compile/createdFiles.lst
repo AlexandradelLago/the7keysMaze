@@ -2,6 +2,7 @@ tws/keeper/model/Keeper.class
 tws/keeper/model/Position.class
 tws/keeper/model/Cell.class
 tws/keeper/model/Action.class
+tws/keeper/solution/KeeperAI$1.class
 tws/keeper/springboot/MazeRestApi.class
 tws/keeper/model/Observable.class
 tws/keeper/solution/KeeperAI.class

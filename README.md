@@ -17,6 +17,10 @@ I implemented the Tramoux algorythm which tries to go always in no stepped cells
 Also, I saved the door position whenever I encountered it before all the 7 keys had been found in order to implement a
 backtrack to the door.
 
+In the last commit Javadoc and tests are better implemented but as I tried to improve the algorythm there are things are s
+that aren not working.
+
+Commits 8 and 9 work properly and the 9th backtracks to the door.
 
 
 # Evaluation criteria

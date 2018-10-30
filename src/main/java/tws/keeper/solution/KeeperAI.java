@@ -17,14 +17,20 @@ public class KeeperAI implements Keeper {
     public static Integer backtrackCount = 0;
     private static Boolean tracking = false;
     public KeeperAI() {
-        backtrackedActions.add(DO_NOTHING);
+     //   backtrackedActions.add(DO_NOTHING);
         lastAction = DO_NOTHING;
     }
 
     /**
      * This Keeper acts according to the Tramoux algotythm
+     * Removes walls
+     * Check if I pass next to the door and If I have all keys then unlocks
+     * If doesnt have all keys starts tracking the cells to know how to go to the door on the way back
+     * If the wizards passes again by the door , reset of the backtracking
+     * TO DECIDE wher to go:
      * Checkes the surrounding cells and if no stepped goes to them randomly
-     * In case all of them are alreadby been walked then goes to the less used
+     * In case all of them are alreadby been walked then goes to a randomly chosen among the same with min steps
+     *
      *
      * @param maze the maze
      * @return something
@@ -32,10 +38,11 @@ public class KeeperAI implements Keeper {
 
     public Action act(Observable maze) {
 
+        System.out.println(backtrackedActions);
         // Actual position
         Position current = maze.getKeeperPosition();
 
-        // I include it in the walked
+        // keep track of the positions the wizard passed by
         walkedPositions.add(current);
 
         // I make a copy of available actions to be able to remove them etc
@@ -53,8 +60,9 @@ public class KeeperAI implements Keeper {
         }else if (maze.getKeysFound()==maze.getTotalNumberOfKeys()&&tracking){
             return backtrackToDoor();
 
-        }else if (maze.getKeysFound()==maze.getTotalNumberOfKeys()&& isDoor(adyacentes)){
+        }else if (isDoor(adyacentes)){
             removeCell(adyacentes, Cell.WALL, tempAvailableActions);
+
             lastAction = decideMove(tempAvailableActions, current, walkedPositions);
             // if I am tracking I put it 0 if not yet started I do
             setOrClearTracking();
@@ -62,12 +70,17 @@ public class KeeperAI implements Keeper {
 
         } else {
             removeCell(adyacentes, Cell.WALL, tempAvailableActions);
+
+            if ((tempAvailableActions.size()>1)&&(walkedPositions.size()>1)){
+                tempAvailableActions = removeLastMovement(tempAvailableActions,adyacentes,lastAction);
+            }
+
             // If there is a cell with a key I go to that cell if no I check where to go
             if (keyIndex(adyacentes)!=-1) {
                 // if there is a key adyacent then It goes first there
                 lastAction= tempAvailableActions.get(keyIndex(adyacentes));
             }else{
-               lastAction = decideMove(tempAvailableActions, current, walkedPositions);
+                lastAction = decideMove(tempAvailableActions, current, walkedPositions);
             }
 
             if (tracking) { backtrackedActions.add(lastAction); }
@@ -81,10 +94,10 @@ public class KeeperAI implements Keeper {
 
 
     /**
-     *  TESTED
-     * @param current
-     * @param nextPos
-     * @return
+     *  Function gives the action to do between to positions
+     * @param current - position at the moment
+     * @param nextPos - position where you wanna go
+     * @return - Action to do
      */
 
     public Action convertPositiontoAction (Position current, Position nextPos){
@@ -106,14 +119,14 @@ public class KeeperAI implements Keeper {
     }
 
     /**
-     * TESTED  Function that gives the position given and action
-     *
-     * @param tempAvailableActions
-     * @param current
-     * @return
+     * Function that calculates the position of the cells according to the action indicate
+     * from the current position
+     * @param action -- action to do
+     * @param current -- from this position
+     * @return - destination position
      */
-    public Position getPositionFromAction(Action tempAvailableActions, Position current) {
-        switch (tempAvailableActions) {
+    public Position getPositionFromAction(Action action, Position current) {
+        switch (action) {
             case GO_UP:
                 return new Position(current.getVertical() - 1, current.getHorizontal());
             case GO_DOWN:
@@ -127,6 +140,13 @@ public class KeeperAI implements Keeper {
         }
         return current;
     }
+
+    /**
+     * Makes an array with the adyacents position to the wizard related to the action needed
+     * @param tempAvailableActions -- possible actions to do
+     * @param current - starting position
+     * @return - array of positions
+     */
     private List<Position> getPositionList(List<Action> tempAvailableActions, Position current) {
         List<Position> tempPosList = new ArrayList<Position>();
         for (int i = 0; i < tempAvailableActions.size(); i++) {
@@ -227,7 +247,7 @@ public class KeeperAI implements Keeper {
         // I already was tracking so I clean the previous path
         if (tracking) {
             backtrackedActions.clear();
-            backtrackedActions.add(lastAction);
+           // backtrackedActions.add(lastAction);
         } else {
             tracking = true;
             backtrackedActions.add(lastAction);
@@ -309,86 +329,137 @@ public class KeeperAI implements Keeper {
      * TESTED - function the gives the index of the cell not stepped if only one and one of the non stepped chosed
      * randomly if more than 1 not stepped cells
      * @param adyPositions - positions of the possible cells for the wizard to go
-     * @return - index a cell to go not stepped yet
+     * @return - index of a cell to go not stepped yet from the adyacent Positions
      */
 
     public int randomOftheNonSteppedCell(List<Position> adyPositions) {
+
         List<Integer> cellsNoStepped = new ArrayList<Integer>();
         for (int i = 0; i < adyPositions.size(); i++) {
+            // first checks cells that are not stepped yet
             if (timesStepped(adyPositions.get(i),walkedPositions) == 0) {
                 cellsNoStepped.add(i);
             }
         }
 
+        // in only one i return that
         if (cellsNoStepped.size()==1){
             return cellsNoStepped.get(0);
         }else{
+
+            // if not random position among the ones with same 0 steps
             int index = (int) Math.floor(Math.random()*cellsNoStepped.size());
-            // int index = ThreadLocalRandom.current().nextInt(cellsNoStepped.size()-1);
             return  cellsNoStepped.get(index);
         }
     }
 
+    /**
+     * Function that returns the index of the position to go that has minimum number of s
+     * @param adyPositions
+     * @return
+     */
+    public int randomMinStepped(List<Position> adyPositions) {
+        if (adyPositions.size()==1){
+            return 0;
+        }else{
+            List<Integer> stepsInAdyCell = new ArrayList<Integer>();
+            List<Integer> lastTimeStepped = new ArrayList<Integer>();
+            // check how many times have been stepped the ady cells
+            for (int i = 0; i < adyPositions.size(); i++) {
+                stepsInAdyCell.add(timesStepped(adyPositions.get(i),walkedPositions));
+            }
+            // look for the min steps
+            int minIndex = stepsInAdyCell.indexOf(Collections.min(stepsInAdyCell));
+            int minSteps = stepsInAdyCell.get(minIndex);
 
-    /*+++++++++++++++++ NON TESTD YET +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+            // check the cells that have the same min number of steppes
+            List<Integer> cellsOfMinSteps =new ArrayList<Integer>();
+            for (int i=0;i<adyPositions.size();i++){
+                if (stepsInAdyCell.get(i)==minSteps){
+                   cellsOfMinSteps.add(i);
+                }
+            }
+            // if only one cell I give it straight
+            if (cellsOfMinSteps.size()==1){
+                return cellsOfMinSteps.get(0);
+            } else{
+                // returs a random position among the min stepped ones
+               int index = (int) Math.floor(Math.random()*cellsOfMinSteps.size());
+                return  cellsOfMinSteps.get(index);
+            }
+        }
+    }
+
+    /**
+     * Funtion that removes the last movement to not go backwards
+     * @param temporaryDirections -- availableActions (UO,RIGHT;DOWN;LEFT)
+     * @param ady -- adyCells
+     * @param direction -- last Action that tells me the direction from where I come
+     * @return availableActions removing the last cell
+     */
+    private List<Action> removeLastMovement(List<Action> temporaryDirections, List<Cell> ady, Action direction ){
+        switch (direction){
+            case GO_UP:
+                if (temporaryDirections.indexOf(GO_DOWN)!=-1){
+                    ady.remove(temporaryDirections.indexOf(GO_DOWN));
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_DOWN));
+                }
+                break;
+            case GO_DOWN:
+                if (temporaryDirections.indexOf(GO_UP)!=-1){
+                    ady.remove(temporaryDirections.indexOf(GO_UP));
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_UP));
+                }
+                break;
+            case GO_RIGHT:
+                if (temporaryDirections.indexOf(GO_LEFT)!=-1){
+                    ady.remove(temporaryDirections.indexOf(GO_LEFT));
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_LEFT));
+                }
+                break;
+            case GO_LEFT:
+                if (temporaryDirections.indexOf(GO_RIGHT)!=-1) {
+                    ady.remove(temporaryDirections.indexOf(GO_RIGHT));
+                    temporaryDirections.remove(temporaryDirections.indexOf(GO_RIGHT));
+                }
+                break;
+        }
+        return temporaryDirections;
+    }
 
 
 
+    /*+++++++++++++++++ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+    /**
+     * Function that decides what next action to do
+     * It decides :
+     *   If there is no stepped adyacents cell I go there and if more than one then random among those.
+     *   If all are stepped then I go to the randomly selected among the cells with the min num of steps among the ady
+     *   cells.
+     * @param tempAvailableActions - available actions after removing walls and origin
+     * @param current - current position
+     * @param walkedPos - list of all walked positions
+     * @return - next action to do
+     */
 
     public Action decideMove(List<Action> tempAvailableActions, Position current, List<Position> walkedPos) {
         List<Position> adyPositions = getPositionList(tempAvailableActions, current);
-        System.out.println("mis posiciones adyacentes "+adyPositions);
-        System.out.println("mi actual posicion "+current);
-        System.out.println("mis walked positions "+walkedPos);
         Action move;
+        int index;
+        if (allStepped(adyPositions)) {
+            index = randomMinStepped(adyPositions);
 
-
-
-      /*  if (allStepped(adyPositions)&&adyPositions.size()<3){
-            System.out.println("este es mi backtrackcount "+backtrackCount);
-            backtrackCount+=1;
-            System.out.println("este es mi backtrackcount "+backtrackCount);
-            Position pos =  walkedPos.get(walkedPos.size()-backtrackCount*2);
-            System.out.println("la posicion a la que tengo que ir de walked positions "+pos);
-            move = convertPositiontoAction( current, pos);
-
-            System.out.println("el movimiento "+ move);
-            return move;
-        }else */if (allStepped(adyPositions)) {
-            // if junction of 3 then go to the less stepped
-            List<Integer> stepsInAdyCell = new ArrayList<Integer>();
-            for (int i=0;i<adyPositions.size();i++){
-                stepsInAdyCell.add(timesStepped(adyPositions.get(i),walkedPos));
-            }
-
-
-            int minIndex = stepsInAdyCell.indexOf(Collections.min(stepsInAdyCell));
-            Position pos = adyPositions.get(minIndex);
-
-            move = convertPositiontoAction(current,pos);
-            return move;
         }else{
+            index= randomOftheNonSteppedCell(adyPositions);
 
-            int indexM= randomOftheNonSteppedCell(adyPositions);
-             move = tempAvailableActions.get(indexM);
-             System.out.println(move);
-           // while (walkedPos.get(walkedPos.size()-2)!=current){
-           //     walkedPos.remove(walkedPos.size()-1);
-           // }
-            System.out.println("estoy en el de no back track , con opciones ");
-            backtrackCount=0;
-            return move;
         }
 
+        move = tempAvailableActions.get(index);
+        return move;
+
     }
-
-
-
-
-    public Position lastPosition(List<Position> movements) {
-        return movements.get(movements.size() - 1);
-    }
-
 
 
 

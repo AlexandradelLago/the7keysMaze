@@ -16,8 +16,7 @@ public class KeeperAI implements Keeper {
     private static Action lastAction;
     public static Integer backtrackCount = 0;
     private static Boolean tracking = false;
-    public KeeperAI() {
-     //   backtrackedActions.add(DO_NOTHING);
+    public KeeperAI() { ;
         lastAction = DO_NOTHING;
     }
 
@@ -38,7 +37,6 @@ public class KeeperAI implements Keeper {
 
     public Action act(Observable maze) {
 
-        System.out.println(backtrackedActions);
         // Actual position
         Position current = maze.getKeeperPosition();
 
@@ -62,10 +60,10 @@ public class KeeperAI implements Keeper {
 
         }else if (isDoor(adyacentes)){
             removeCell(adyacentes, Cell.WALL, tempAvailableActions);
-
+            setOrClearTracking();
             lastAction = decideMove(tempAvailableActions, current, walkedPositions);
             // if I am tracking I put it 0 if not yet started I do
-            setOrClearTracking();
+
             return lastAction;
 
         } else {
@@ -83,8 +81,8 @@ public class KeeperAI implements Keeper {
                 lastAction = decideMove(tempAvailableActions, current, walkedPositions);
             }
 
-            if (tracking) { backtrackedActions.add(lastAction); }
-
+            if (tracking) { backtrackedActions.add(lastAction);}
+            System.out.println(backtrackedActions);
             return lastAction;
         }
 
@@ -247,7 +245,7 @@ public class KeeperAI implements Keeper {
         // I already was tracking so I clean the previous path
         if (tracking) {
             backtrackedActions.clear();
-           // backtrackedActions.add(lastAction);
+           backtrackedActions.add(lastAction);
         } else {
             tracking = true;
             backtrackedActions.add(lastAction);
@@ -358,10 +356,11 @@ public class KeeperAI implements Keeper {
      * @param adyPositions
      * @return
      */
-    public int randomMinStepped(List<Position> adyPositions) {
+    public int randomMinStepped(List<Position> adyPositions, Position current) {
         if (adyPositions.size()==1){
             return 0;
         }else{
+
             List<Integer> stepsInAdyCell = new ArrayList<Integer>();
             List<Integer> lastTimeStepped = new ArrayList<Integer>();
             // check how many times have been stepped the ady cells
@@ -385,6 +384,8 @@ public class KeeperAI implements Keeper {
             } else{
                 // returs a random position among the min stepped ones
                int index = (int) Math.floor(Math.random()*cellsOfMinSteps.size());
+                // when is junction and stepped all around
+                walkedPositions.add(adyPositions.get(index));
                 return  cellsOfMinSteps.get(index);
             }
         }
@@ -449,7 +450,7 @@ public class KeeperAI implements Keeper {
         Action move;
         int index;
         if (allStepped(adyPositions)) {
-            index = randomMinStepped(adyPositions);
+            index = randomMinStepped(adyPositions,current);
 
         }else{
             index= randomOftheNonSteppedCell(adyPositions);

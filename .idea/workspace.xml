@@ -2,55 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc0b7d8e-c0d1-4de1-8561-f45fb6f02050" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/allclasses-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/allclasses-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/allclasses-noframe.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/allclasses-noframe.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/constant-values.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/deprecated-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/deprecated-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/help-doc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-10.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-11.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-12.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-13.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-14.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-15.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-16.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-16.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-4.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-5.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-7.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-8.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-9.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/member-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/member-search-index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/member-search-index.zip" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/member-search-index.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/overview-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/overview-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/overview-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/overview-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/overview-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/package-search-index.zip" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/package-search-index.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/Action.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/Action.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/Cell.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/Cell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/Keeper.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/Keeper.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/Maze.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/Maze.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/Observable.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/Observable.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/Position.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/Position.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/model/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/model/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/solution/KeeperAI.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/solution/KeeperAI.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/solution/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/solution/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/solution/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/solution/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/solution/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/solution/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/MazeApplication.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/MazeApplication.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/MazeRestApi.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/MazeRestApi.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tws/keeper/springboot/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/type-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/type-search-index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javadoc/type-search-index.zip" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/type-search-index.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -114,7 +65,7 @@
           <entry key="css" value="13" />
           <entry key="dummy" value="5" />
           <entry key="html" value="56" />
-          <entry key="java" value="30534" />
+          <entry key="java" value="30792" />
           <entry key="js" value="131" />
           <entry key="md" value="714" />
           <entry key="txt" value="15" />
@@ -125,7 +76,7 @@
         <counts>
           <entry key="CSS" value="13" />
           <entry key="HTML" value="56" />
-          <entry key="JAVA" value="30534" />
+          <entry key="JAVA" value="30792" />
           <entry key="JavaScript" value="131" />
           <entry key="PLAIN_TEXT" value="734" />
           <entry key="XML" value="13" />
@@ -138,11 +89,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+            <state relative-caret-position="249">
+              <caret line="83" column="63" selection-start-line="83" selection-start-column="63" selection-end-line="83" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#act#0;class#KeeperAI#0" />
                 <element signature="method#convertPositiontoAction#0;class#KeeperAI#0" />
                 <element signature="method#getPositionFromAction#0;class#KeeperAI#0" />
                 <element signature="method#getPositionList#0;class#KeeperAI#0" />
@@ -151,15 +101,12 @@
                 <element signature="method#keyIndex#0;class#KeeperAI#0" />
                 <element signature="method#removeCell#0;class#KeeperAI#0" />
                 <element signature="method#adyacents#0;class#KeeperAI#0" />
-                <element signature="method#setOrClearTracking#0;class#KeeperAI#0" />
-                <element signature="method#backtrackToDoor#0;class#KeeperAI#0" />
                 <element signature="method#timesStepped#0;class#KeeperAI#0" />
                 <element signature="method#stepped#0;class#KeeperAI#0" />
                 <element signature="method#allStepped#0;class#KeeperAI#0" />
                 <element signature="method#randomOftheNonSteppedCell#0;class#KeeperAI#0" />
                 <element signature="method#longerTimeTheMinStepped#0;class#KeeperAI#0" />
                 <element signature="method#removeLastMovement#0;class#KeeperAI#0" />
-                <element signature="method#decideMove#0;class#KeeperAI#0" />
               </folding>
             </state>
           </provider>
@@ -246,10 +193,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="214" />
+    <option name="x" value="482" />
     <option name="y" value="23" />
-    <option name="width" value="1393" />
-    <option name="height" value="824" />
+    <option name="width" value="1125" />
+    <option name="height" value="873" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -507,10 +454,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="214" y="23" width="1393" height="824" extended-state="0" />
+    <frame x="482" y="23" width="1125" height="873" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.06513694" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08956602" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -519,7 +466,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.28313252" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49225268" visible="true" weight="0.024590164" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49225268" visible="true" weight="0.14980794" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7902439" weight="0.355414" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -559,31 +506,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>80</line>
+          <line>78</line>
           <properties />
           <option name="timeStamp" value="213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>82</line>
+          <line>80</line>
           <properties />
           <option name="timeStamp" value="214" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>41</line>
+          <line>39</line>
           <properties />
           <option name="timeStamp" value="216" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>67</line>
-          <properties />
-          <option name="timeStamp" value="217" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java</url>
-          <line>336</line>
+          <line>334</line>
           <properties />
           <option name="timeStamp" value="233" />
         </line-breakpoint>
@@ -934,11 +875,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tws/keeper/solution/KeeperAI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+        <state relative-caret-position="249">
+          <caret line="83" column="63" selection-start-line="83" selection-start-column="63" selection-end-line="83" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#act#0;class#KeeperAI#0" />
             <element signature="method#convertPositiontoAction#0;class#KeeperAI#0" />
             <element signature="method#getPositionFromAction#0;class#KeeperAI#0" />
             <element signature="method#getPositionList#0;class#KeeperAI#0" />
@@ -947,15 +887,12 @@
             <element signature="method#keyIndex#0;class#KeeperAI#0" />
             <element signature="method#removeCell#0;class#KeeperAI#0" />
             <element signature="method#adyacents#0;class#KeeperAI#0" />
-            <element signature="method#setOrClearTracking#0;class#KeeperAI#0" />
-            <element signature="method#backtrackToDoor#0;class#KeeperAI#0" />
             <element signature="method#timesStepped#0;class#KeeperAI#0" />
             <element signature="method#stepped#0;class#KeeperAI#0" />
             <element signature="method#allStepped#0;class#KeeperAI#0" />
             <element signature="method#randomOftheNonSteppedCell#0;class#KeeperAI#0" />
             <element signature="method#longerTimeTheMinStepped#0;class#KeeperAI#0" />
             <element signature="method#removeLastMovement#0;class#KeeperAI#0" />
-            <element signature="method#decideMove#0;class#KeeperAI#0" />
           </folding>
         </state>
       </provider>
